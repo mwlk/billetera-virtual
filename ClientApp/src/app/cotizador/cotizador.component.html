@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="flex-container"
+       style="display: flex; width: 25px; height: 70px"></div>
+  <div class="title-container">
+    <blockquote class="blockquote text-center">
+      <p class="mb-0"></p>
+      <h1>Divisas en Argentina</h1>
+      <footer style="color: white">
+        Cotización en <cite title="Source Title">vivo</cite>
+      </footer>
+    </blockquote>
+  </div>
+  <div id="tabla-divizas" class="container text-center table-responsive-xl">
+    <table class="table table-hover table-dark table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Compra</th>
+          <th scope="col">Venta</th>
+          <th scope="col">Agencia</th>
+          <th scope="col">Variación</th>
+          <!-----
+          <th scope="col">Venta Cero</th>
+          <th scope="col">Decimales</th>
+          -->
+        </tr>
+      </thead>
+      <tbody id="tabla-diviza">
+        <tr *ngFor="let diviza of divizas; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td id="nombre">{{ diviza.casa.nombre }}</td>
+          <td>{{ diviza.casa.compra }}</td>
+          <td>{{ diviza.casa.venta }}</td>
+          <td>{{ diviza.casa.agencia }}</td>
+          <td *ngIf="diviza.casa.variacion == null">Sin Datos</td>
+          <td *ngIf="diviza.casa.variacion != null">
+            {{ diviza.casa.variacion + " %" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+/* You can add global styles to this file, and also import other style files */
+body {
+  /*background-image: url('./images/Forever Lost.jpg');*/
+  background-image: url('./images/Titanium.jpg');
+  /*background-image: url("./images/80's Purple.jpg");*/
+  /*background-image: url('./images/Frost.jpg');*/
+  /*background-image: url("./images/Purplepine.jpg");*/
+  /*background-image:url('./images/What lies Beyond.jpg');*/
+  color: whitesmoke;
+}

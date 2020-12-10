@@ -1,0 +1,21 @@
+#tabla-diviza tr:hover td {
+  background-color: #c6ac8f;
+  color: black;
+}
+
+#tabla-diviza tr:hover th {
+  background-color: #5e503f;
+  color: black;
+}
+
+#tabla-diviza tr:hover td#nombre {
+  font-weight: bold;
+}
+
+.navbar {
+  background-color: #3c1642 !important;
+}
+
+.title-container {
+  text-align: center;
+}

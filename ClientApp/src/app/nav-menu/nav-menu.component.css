@@ -1,0 +1,36 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+  color: darkgray;
+}
+
+  a.navbar-brand:hover {
+    color: white;
+  }
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.navbar {
+  background-color: #002642 !important;
+}
+
+a.nav-link.text-dark {
+  color: darkgray !important;
+}
+
+  a.nav-link.text-dark:hover {
+    color: white !important;
+  }
