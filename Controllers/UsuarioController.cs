@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using WepAppClip.Models;
+using WepAppClip.Models.Request;
 using WepAppClip.Models.Response;
 using WepAppClip.Models.ViewModels;
 
@@ -47,11 +48,12 @@ namespace WepAppClip.Controllers
                     NombreUsuario = oModel.NombreUsuario,
                     Password = oModel.Password,
                     FechaAlta = oModel.FechaAlta,
-                    Estado = oModel.Estado
+                    Estado = oModel.Estado,
+                    Email = oModel.Email
                 };
                 db.Usuarios.Add(oUsuario);
                 db.SaveChanges();
-
+                
                 //codigo de exito = 1, si da error es = 0
                 oResponse.Exito = 1;
                 oResponse.Mensaje = "Registro Insertado";
@@ -147,5 +149,15 @@ namespace WepAppClip.Controllers
             }
             return Ok(oResponse);
         }
+        [HttpPost("login")]
+        public IActionResult Autentificacion([FromBody] AuthRequest model)
+        {
+            Response oResponse = new Response
+            {
+                Exito = 0
+            };
+            return Ok(model);
+        }
     }
+    
 }

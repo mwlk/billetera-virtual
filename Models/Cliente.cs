@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-
+﻿using System;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -22,10 +22,9 @@ namespace WepAppClip.Models
         public byte[] FrontalDni { get; set; }
         public byte[] TraseraDni { get; set; }
         public string Email { get; set; }
-        public int IdUsuario { get; set; }
+        public string Password { get; set; }
 
         public virtual Direccion IdDireccionNavigation { get; set; }
-        public virtual Usuario IdUsuarioNavigation { get; set; }
         public virtual ICollection<Cuentum> Cuenta { get; set; }
     }
 }

@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WepAppClip.Models;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
@@ -59,7 +60,8 @@ namespace WepAppClip.Models
                     .HasColumnName("apellido");
 
                 entity.Property(e => e.Email)
-                    .HasMaxLength(25)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
                     .HasColumnName("email");
 
                 entity.Property(e => e.Estado).HasColumnName("estado");
@@ -69,8 +71,6 @@ namespace WepAppClip.Models
                     .HasColumnName("frontalDNI");
 
                 entity.Property(e => e.IdDireccion).HasColumnName("idDireccion");
-
-                entity.Property(e => e.IdUsuario).HasColumnName("idUsuario");
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(50)
@@ -85,6 +85,11 @@ namespace WepAppClip.Models
                     .HasMaxLength(50)
                     .HasColumnName("nroTelefono");
 
+                entity.Property(e => e.Password)
+                    .HasMaxLength(256)
+                    .IsUnicode(false)
+                    .HasColumnName("password");
+
                 entity.Property(e => e.TraseraDni)
                     .HasColumnType("image")
                     .HasColumnName("traseraDNI");
@@ -93,12 +98,6 @@ namespace WepAppClip.Models
                     .WithMany(p => p.Clientes)
                     .HasForeignKey(d => d.IdDireccion)
                     .HasConstraintName("FK_Cliente_Direccion");
-
-                entity.HasOne(d => d.IdUsuarioNavigation)
-                    .WithMany(p => p.Clientes)
-                    .HasForeignKey(d => d.IdUsuario)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Cliente_Usuario");
             });
 
             modelBuilder.Entity<Cuentum>(entity =>
@@ -581,6 +580,12 @@ namespace WepAppClip.Models
                 entity.ToTable("Usuario");
 
                 entity.Property(e => e.IdUsuario).HasColumnName("idUsuario");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
 
                 entity.Property(e => e.Estado).HasColumnName("estado");
 

@@ -12,5 +12,6 @@ namespace WepAppClip.Models.ViewModels
         public string Password { get; set; }
         public DateTime? FechaAlta { get; set; }
         public int? Estado { get; set; }
+        public string Email { get; set; }
     }
 }

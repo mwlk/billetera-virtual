@@ -7,31 +7,41 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { CotizadorComponent } from './cotizador/cotizador.component'
 import { LoginComponent } from './login/login.component';
+import { ClienteComponent } from './cliente/cliente.component';
+
+import { ClienteService } from './services/cliente.service';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card'; 
+import { AuthGuard } from './security/auth.guard';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
     CotizadorComponent,
-    LoginComponent
+    LoginComponent,
+    ClienteComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    MatTableModule,
+    MatCardModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent, pathMatch: 'full' },
-      { path: 'home', component: HomeComponent},
-      { path: 'counter', component: CounterComponent },
-      { path: 'cotizador', component: CotizadorComponent },
+      { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+      { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
+      { path: 'cotizador', component: CotizadorComponent},
+      { path: 'login', component:LoginComponent},
+      // {path: 'signup', component: SignUpComponent}
     ])
   ],
-  providers: [],
+  providers: [ClienteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

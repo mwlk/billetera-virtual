@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WepAppClip.Models;
+using WepAppClip.Models.Request;
 using WepAppClip.Models.Response;
 using WepAppClip.Models.ViewModels;
+using WepAppClip.Services;
 
 namespace WepAppClip.Controllers
 {
@@ -13,6 +16,13 @@ namespace WepAppClip.Controllers
     [ApiController]
     public class ClienteController : Controller
     {
+        private readonly IUsuarioService _usuarioService;
+
+        public ClienteController(IUsuarioService usuarioService)
+        {
+            _usuarioService = usuarioService;
+        }
+
         [HttpGet("[action]")]
         public IActionResult Get()
         {
@@ -26,7 +36,7 @@ namespace WepAppClip.Controllers
                 var lista = db.Clientes.ToList();
                 oResponse.Exito = 1;
                 oResponse.Data = lista;
-                oResponse.Mensaje = "Operacion Exitosa";
+                oResponse.Mensaje = "Listado De Total de Clientes Exitoso";
             }
             catch (Exception e)
             {
@@ -56,8 +66,8 @@ namespace WepAppClip.Controllers
                     FrontalDni = oModel.FrontalDni,
                     TraseraDni = oModel.TraseraDni,
                     Email = oModel.Email,
-                    IdUsuario = oModel.IdUsuario
-    };
+                    Password = oModel.Password
+                };
                 db.Clientes.Add(oCliente);
                 db.SaveChanges();
 
@@ -83,6 +93,7 @@ namespace WepAppClip.Controllers
             {
                 using (Billetera_virtualContext db = new Billetera_virtualContext())
                 {
+
                     Cliente oCliente = db.Clientes.Find(oModel.IdCliente);
 
                     oCliente.Nombre = oModel.Nombre;
@@ -94,15 +105,16 @@ namespace WepAppClip.Controllers
                     oCliente.FrontalDni = oModel.FrontalDni;
                     oCliente.TraseraDni = oModel.TraseraDni;
                     oCliente.Email = oModel.Email;
-                    oCliente.IdUsuario = oModel.IdUsuario;
+                    oCliente.Password = oModel.Password;
 
                     db.Entry(oCliente).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     db.SaveChanges();
-
-                    //codigo de exito = 1, si da error es = 0
                     oResponse.Exito = 1;
-                    oResponse.Mensaje = "Registro Editado con Exito";
-                };
+
+                }
+                //codigo de exito = 1, si da error es = 0
+                oResponse.Exito = 1;
+                oResponse.Mensaje = "Registro Actualizado";
             }
             catch (Exception e)
             {
@@ -122,7 +134,7 @@ namespace WepAppClip.Controllers
             {
                 using (Billetera_virtualContext db = new Billetera_virtualContext())
                 {
-                   Cliente oCliente = db.Clientes.Find(_id);
+                    Cliente oCliente = db.Clientes.Find(_id);
 
                     db.Remove(oCliente);
 
@@ -162,5 +174,65 @@ namespace WepAppClip.Controllers
             }
             return Ok(oResponse);
         }
+
+        [HttpGet("[action]")]
+        public IActionResult GetListModels()
+        {
+            Response oResponse = new Response
+            {
+                Exito = 0
+            };
+            try
+            {
+                using Billetera_virtualContext db = new Billetera_virtualContext();
+                List<ClienteViewModel> lista = (from c in db.Clientes
+                                                join d in db.Direccions on c.IdDireccion equals d.IdDireccion
+                                                join l in db.Localidads on d.IdLocalidad equals l.IdLocalidad
+                                                join p in db.Provincia on l.IdProvincia equals p.IdProvincia
+                                                select new ClienteViewModel
+                                                {
+                                                    IdCliente = c.IdCliente,
+                                                    Nombre = c.Nombre,
+                                                    Apellido = c.Apellido,
+                                                    //Estado = c.Estado,
+                                                    NroTelefono = c.NroTelefono,
+                                                    NroDni = c.NroDni,
+                                                    //FrontalDni = c.FrontalDni,
+                                                    //TraseraDni=c.TraseraDni,
+                                                    Email = c.Email,
+                                                    NomDireccion = d.Calle,
+                                                    NomLocalidad = l.Nombre,
+                                                    NomProvincia = p.Nombre
+                                                }).ToList();
+
+                oResponse.Data = lista;
+                oResponse.Mensaje = "View Model generado con exito";
+            }
+            catch (Exception e)
+            {
+
+                oResponse.Mensaje = e.Message;
+            }
+            return Ok(oResponse);
+        }
+
+        [HttpPost("login")]
+        public IActionResult Autentificar([FromBody] AuthRequest model)
+        {
+            Response response = new Response();
+            var usuarioResponse = _usuarioService.Auth(model);
+
+            if (usuarioResponse == null)
+            {
+                response.Exito = 0;
+                response.Mensaje = "Usuario o Password Incorrectos";
+                return BadRequest(response);
+            }
+            response.Exito = 1;
+            response.Data = usuarioResponse;
+            response.Mensaje = "Usuario Encontrado con Exito";
+            return Ok(response);
+        }
     }
 }
+

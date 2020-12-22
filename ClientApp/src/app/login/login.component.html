@@ -1,1 +1,27 @@
-<h1>pribiet</h1>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:100,300,500">
+  <title>Login</title>
+</head>
+<body>
+  <div class="full-screen-container">
+    <div class="login-container">
+      <h3 class="login-title">Bienvenido a Billetera Clip!</h3>
+
+      <div class="input-group">
+        <label>Nombre de Usuario</label>
+        <input type="text" [(ngModel)]="email" placeholder="Email"/><br />
+      </div>
+      <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="password" placeholder="********">
+      </div>
+      <button (click)="login()" class="btn btn-success btn-lg">Iniciar Sesión</button><br>
+      <a [routerLink]="['/signup']">Registrar Usuario</a>
+
+    </div>
+  </div>
+</body>
+</html>
