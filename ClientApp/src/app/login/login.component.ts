@@ -1,6 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'login-component',
@@ -9,11 +11,23 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit{
 
-  public email: string;
-  public password: string;
+  public loginForm = this.builder.group({
+    email: ['', Validators.compose(
+      [Validators.required, Validators.email])],
+    password: ['', Validators.compose(
+      [Validators.required, Validators.minLength(3)])]
+  });
 
-  constructor(public authService: AuthService) {
-
+  /*public loginForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl('')
+  });
+  **/
+  constructor(public authService: AuthService, private router: Router,
+    private builder: FormBuilder) {
+    if (this.authService.usuarioData) {
+      this.router.navigate(['/home'])
+    }
   }
 
   ngOnInit() {
@@ -21,8 +35,11 @@ export class LoginComponent implements OnInit{
   }
 
   login() {
-    this.authService.login(this.email, this.password).subscribe(response => {
-      console.log(response);
+    console.log(this.loginForm.value);
+    this.authService.login(this.loginForm.value).subscribe(response => {
+      if (response.exito === 1) {
+        this.router.navigate(['/home']);
+      }
     });
   }
 }

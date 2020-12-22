@@ -40,19 +40,19 @@
     <None Remove="ClientApp\src\app\cliente\cliente.component.ts" />
     <None Remove="ClientApp\src\app\cotizador\cotizador.component.ts" />
     <None Remove="ClientApp\src\app\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\models\login.ts" />
     <None Remove="ClientApp\src\app\models\response.ts" />
+    <None Remove="ClientApp\src\app\models\usuario.ts" />
     <None Remove="ClientApp\src\app\security\auth.guard.ts" />
+    <None Remove="ClientApp\src\app\security\jwt.interceptor.ts" />
     <None Remove="ClientApp\src\app\services\auth.service.ts" />
     <None Remove="ClientApp\src\app\services\cliente.service.ts" />
     <None Remove="ClientApp\src\app\services\diviza.service.ts" />
+    <None Remove="ClientApp\src\app\signup\signup.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\services\diviza.service.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\app\signup\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

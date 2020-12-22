@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -15,6 +15,9 @@ import { ClienteService } from './services/cliente.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card'; 
 import { AuthGuard } from './security/auth.guard';
+import { JwtInterceptor } from './security/jwt.interceptor';
+import { SignupComponent } from './signup/signup.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -24,24 +27,30 @@ import { AuthGuard } from './security/auth.guard';
     HomeComponent,
     CotizadorComponent,
     LoginComponent,
-    ClienteComponent
+    ClienteComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
     FormsModule,
     MatTableModule,
     MatCardModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
-      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-      { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
+      { path: '', redirectTo: 'login', pathMatch: 'full', canActivate: [AuthGuard]},
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+      { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard]},
       { path: 'cotizador', component: CotizadorComponent},
-      { path: 'login', component:LoginComponent},
-      // {path: 'signup', component: SignUpComponent}
+      { path: 'login', component: LoginComponent},
+      { path: 'signup', component: SignupComponent}
+      //,canActivate: [AuthGuard]
     ])
   ],
-  providers: [ClienteService],
+  providers: [
+    ClienteService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
