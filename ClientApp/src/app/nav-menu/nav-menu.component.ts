@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
+import { Usuario } from '../models/usuario';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -9,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  usuario: Usuario;
 
   collapse() {
     this.isExpanded = false;
@@ -18,8 +21,9 @@ export class NavMenuComponent {
     this.isExpanded = !this.isExpanded;
   }
 
-  constructor(private authservice: AuthService, private router: Router) {
-
+  constructor(public authservice: AuthService, private router: Router) {
+    this.authservice.usuario.subscribe(res => {
+    this.usuario = res})
   }
 
   logout() {

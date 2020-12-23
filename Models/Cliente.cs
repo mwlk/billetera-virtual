@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -22,6 +23,7 @@ namespace WepAppClip.Models
         public byte[] FrontalDni { get; set; }
         public byte[] TraseraDni { get; set; }
         public string Email { get; set; }
+        [JsonIgnore]
         public string Password { get; set; }
 
         public virtual Direccion IdDireccionNavigation { get; set; }

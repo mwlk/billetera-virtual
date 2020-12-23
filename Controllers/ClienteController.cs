@@ -11,7 +11,7 @@ using WepAppClip.Services;
 
 namespace WepAppClip.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClienteController : Controller
@@ -216,6 +216,7 @@ namespace WepAppClip.Controllers
             return Ok(oResponse);
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Autentificar([FromBody] AuthRequest model)
         {

@@ -60,7 +60,7 @@ namespace WepAppClip.Services
                         new Claim(ClaimTypes.NameIdentifier, usuario.IdCliente.ToString()),
                         new Claim(ClaimTypes.Email, usuario.Email)
                     }),
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials=new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
