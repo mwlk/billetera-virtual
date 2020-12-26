@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Usuario } from '../models/usuario';
 
 @Component({
   selector: 'login-component',
@@ -10,6 +11,8 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
+
+  public usuario: Usuario;
 
   public loginForm = this.builder.group({
     email: ['', Validators.compose(
@@ -35,11 +38,12 @@ export class LoginComponent implements OnInit{
   }
 
   login() {
-    console.log(this.loginForm.value);
+    //console.log(this.loginForm.value);
     this.authService.login(this.loginForm.value).subscribe(response => {
       if (response.exito === 1) {
         this.router.navigate(['/home']);
       }
+      //console.log('ID de usuario '+localStorage.getItem('ID'));
     });
   }
 }
