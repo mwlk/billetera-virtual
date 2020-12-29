@@ -38,6 +38,8 @@ namespace WepAppClip
 
             services.AddDbContext<Billetera_virtualContext>(options => options.UseSqlServer(conexion));
 
+            // services.AddCors();
+
             //config jwt
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
@@ -69,6 +71,16 @@ namespace WepAppClip
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            /*
+            app.UseCors(options => options.WithOrigins("https://localhost:5001/")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+            
+            app.UseCors(options => options.WithOrigins("https://www.dolarsi.com/")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+            */
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

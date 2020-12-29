@@ -40,6 +40,7 @@ export class AuthService {
           const user: Usuario = res.data;
           localStorage.setItem('User', JSON.stringify(user));
           this.usuarioSubject.next(user);
+          localStorage.setItem('ID', JSON.stringify(user.id));
         }
         return res;
       })
@@ -48,6 +49,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('User');
+    localStorage.removeItem('ID');
     this.usuarioSubject.next(null);
   }
 }

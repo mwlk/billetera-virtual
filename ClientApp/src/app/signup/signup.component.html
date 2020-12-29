@@ -2,73 +2,79 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:100,300,500">
+
+  <link type="text/css" href="../../assets/css/argon.css?v=1.2.0" rel="stylesheet">
   <title>Login</title>
 </head>
 <body>
-  <div class="full-screen-container">
-    <div class="login-container">
-      <h3 class="login-title">Registrate en Billetera Clip!</h3>
-      <form [formGroup]="signupForm" (ngSubmit)="signup()">
-        <div class="input-group">
-          <label>Nombre Completo</label>
-          <input type="text" formControlName="nombre" placeholder="Nombres" /><br />
-        </div>
-        <div class="input-group">
-          <label>Apellidos</label>
-          <input type="text" formControlName="apellido" placeholder="Apellidos" /><br />
-        </div>
-        <div class="input-group">
-          <label>Número de Teléfono</label>
-          <input type="number" formControlName="nroTelefono" placeholder="Numero de Telefono" /><br />
-        </div>
-        <div class="input-group">
-          <label>Dni</label>
-          <input type="number" formControlName="nroDni" placeholder="Numero de Dni" /><br />
-        </div>
-        <div class="input-group">
-          <label>Imagen Frontal Dni</label>
-          <input type="file" formControlName="frontalDni" placeholder="Imagen Frontal Dni" /><br />
-        </div>
-        <div class="input-group">
-          <label>Imagen Posterior Dni</label>
-          <input type="file" formControlName="traseralDni" placeholder="Imagen Posterior Dni" /><br />
-        </div>
-        <div class="input-group">
-          <label>Email</label>
-          <input type="email" formControlName="email" placeholder="Email" /><br />
-        </div>
-        <div class="input-group">
-          <label>Confirme Email</label>
-          <input type="email" formControlName="emailRepeat" placeholder="Repita Email" /><br />
-        </div>
-        <div class="input-group">
-          <label>Contraseña</label>
-          <input type="password" formControlName="password" placeholder="*******" /><br />
-        </div>
-        <div class="input-group">
-          <label>Repita Contraseña</label>
-          <input type="password" formControlName="passwordRepeat" placeholder="*******" /><br />
-        </div>
-        <div class="input-group">
-          <label>Dirección</label>
-          <input type="text" formControlName="direccion" placeholder="Direccion" /><br />
-        </div>
-        <div class="input-group">
-          <label>Número de Calle</label>
-          <input type="text" formControlName="alturaCalle" placeholder="Numero de Calle" /><br />
-        </div>
-        <div class="input-group">
-          <label>Ciudad</label>
-          <input type="text" formControlName="ciudad" placeholder="Ciudad" /><br />
-        </div>
-        <div class="input-group">
-          <label>Nombre de Usuario</label>
-          <input type="text" formControlName="provincia" placeholder="Provincia" /><br />
-        </div>
-        <button type="submit" [disabled]="!signupForm.valid" class="btn btn-success btn-lg">Registrar</button><br>
-        <a [routerLink]="['/login']">Iniciar Sesión</a>
-      </form>
+    <div class="full-screen-container">
+      <div class="login-container">
+        <h3 class="login-title">Registrate en Billetera Clip!</h3>
+        <form [formGroup]="signupForm" (ngSubmit)="signup()">
+          <div class="input-group">
+            <label>Nombre Completo</label>
+            <input type="text" formControlName="nombre" placeholder="Nombres" /><br />
+          </div>
+          <div class="input-group">
+            <label>Apellidos</label>
+            <input type="text" formControlName="apellido" placeholder="Apellidos" /><br />
+          </div>
+          <div class="input-group">
+            <label>Número de Teléfono</label>
+            <input type="number" formControlName="nroTelefono" placeholder="Numero de Telefono" /><br />
+          </div>
+          <div class="input-group">
+            <label>Dni</label>
+            <input type="number" formControlName="nroDni" placeholder="Numero de Dni" /><br />
+          </div>
+          <div class="input-group">
+            <label>Imagen Frontal Dni</label>
+            <input type="file" formControlName="frontalDni" placeholder="Imagen Frontal Dni" /><br />
+          </div>
+          <div class="input-group">
+            <label>Imagen Posterior Dni</label>
+            <input type="file" formControlName="traseralDni" placeholder="Imagen Posterior Dni" /><br />
+          </div>
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" formControlName="email" placeholder="Email" /><br />
+          </div>
+          <div class="input-group">
+            <label>Confirme Email</label>
+            <input type="email" [formControl]="emailRepeat" placeholder="Repita Email" /><br />
+          </div>
+          <div class="input-group">
+            <label>Contraseña</label>
+            <input type="password" formControlName="password" placeholder="*******" /><br />
+          </div>
+          <div class="input-group">
+            <label>Repita Contraseña</label>
+            <input type="password" [formControl]="passwordRepeat" placeholder="*******" /><br />
+          </div>
+            <div class="input-group">
+              <label>Provincia</label>
+              <select id="provincia" [formControl]="provinciaSelected" class="form-control" (change)="SelectProvincia($event.target.value)">
+                <option *ngFor="let provincia of provincias" value={{provincia.idProvincia}}>{{provincia.nombre}}</option>
+              </select>
+            </div>
+          <div class="input-group">
+            <label>Ciudad</label>
+            <select id="ciudad" formControlName="ciudad">
+              <option></option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Dirección</label>
+            <input type="text" formControlName="direccion" placeholder="Direccion" /><br />
+          </div>
+          <div class="input-group">
+            <label>Número de Calle</label>
+            <input type="number" formControlName="alturaCalle" placeholder="Numero de Calle" /><br />
+          </div>
+          <button type="submit" [disabled]="!signupForm.valid" class="btn btn-success btn-lg">Registrar</button><br>
+          <a [routerLink]="['/login']" style="color:whitesmoke">Iniciar Sesión</a>
+        </form>
+      </div>
     </div>
-  </div>
 </body>
 </html>

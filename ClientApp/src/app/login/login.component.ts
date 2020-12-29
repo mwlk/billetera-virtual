@@ -1,9 +1,11 @@
-import { OnInit } from '@angular/core';
+import { ErrorHandler, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from '../models/usuario';
+import { TryCatchStmt } from '@angular/compiler';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'login-component',
@@ -13,12 +15,14 @@ import { Usuario } from '../models/usuario';
 export class LoginComponent implements OnInit{
 
   public usuario: Usuario;
+  private errorLogin: boolean = false;
 
   public loginForm = this.builder.group({
     email: ['', Validators.compose(
       [Validators.required, Validators.email])],
     password: ['', Validators.compose(
       [Validators.required, Validators.minLength(3)])]
+    //cambiar a 8 el minimo, mi user-mail es mirkowlk@gmail.com y la pass es 1234 para probar las respuestas del login
   });
 
   /*public loginForm = new FormGroup({
@@ -41,9 +45,19 @@ export class LoginComponent implements OnInit{
     //console.log(this.loginForm.value);
     this.authService.login(this.loginForm.value).subscribe(response => {
       if (response.exito === 1) {
+        this.errorLogin = false;
         this.router.navigate(['/home']);
-      }
+      } 
       //console.log('ID de usuario '+localStorage.getItem('ID'));
-    });
+    },
+      (err) => {
+        this.loginForm.reset();
+        this.errorLogin = true;
+      }
+    );
+  }
+
+  closeAlert() {
+    this.errorLogin = false;
   }
 }

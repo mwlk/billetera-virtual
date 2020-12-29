@@ -12,9 +12,15 @@ export class CotizadorComponent {
   public divizas: Array<any> = [];
 
   constructor(private service: DivizaService) {
+   /* this.service.getCotizacion().subscribe((resp: any) => {
+      this.divizas = resp;
+    });**/
+  }
+
+  ngOnInit(): void {
     this.service.getCotizacion().subscribe((resp: any) => {
       this.divizas = resp;
-    });
+    })
   }
 
 }

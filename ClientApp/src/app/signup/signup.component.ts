@@ -1,14 +1,33 @@
 import { Component } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, Validators, FormControl } from "@angular/forms";
+import { Observable } from "rxjs";
+import { Provincia } from "../models/provincia";
+import { UbicacionService } from "../services/ubicacion.service";
 
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
+  providers: [UbicacionService]
 })
 
 export class SignupComponent {
+
+  public provincias: any;
+
+  emailRepeat = new FormControl('');
+  passwordRepeat = new FormControl('');
+
+ /*public provinciaSelected: Provincia = {
+    idProvincia: 0,
+    nombre: '',
+    descripcion: ''
+  };
+  */
+  provinciaSelected = new FormControl('');
+
+  public ciudades: any;
 
   public signupForm = this.builder.group({
     nombre: ['', Validators.compose([
@@ -22,11 +41,7 @@ export class SignupComponent {
     traseralDni: [''],
     email: ['', Validators.compose([
       Validators.required])],
-    emailRepeat: ['', Validators.compose([
-      Validators.required])],
     password: ['', Validators.compose([
-      Validators.required])],
-    passwordRepeat: ['', Validators.compose([
       Validators.required])],
     direccion: ['', Validators.compose([
       Validators.required])],
@@ -38,11 +53,23 @@ export class SignupComponent {
       Validators.required])]
   })
 
-  constructor(private builder: FormBuilder) {
+  constructor(private builder: FormBuilder, private ubicacion: UbicacionService) {
 
+  }
+
+  ngOnInit(): void {
+    this.ubicacion.getProvincias().subscribe(rsc => {
+      this.provincias = rsc.data;
+      //console.log(rsc.data);
+    });
+  }
+
+  SelectProvincia(id: any): void {
+    console.log('ID PROVINCIA ', id)
   }
 
   signup() {
-
+    
   }
+
 }

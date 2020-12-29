@@ -40,7 +40,9 @@
     <None Remove="ClientApp\src\app\cliente\cliente.component.ts" />
     <None Remove="ClientApp\src\app\cotizador\cotizador.component.ts" />
     <None Remove="ClientApp\src\app\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\models\localidad.ts" />
     <None Remove="ClientApp\src\app\models\login.ts" />
+    <None Remove="ClientApp\src\app\models\provincia.ts" />
     <None Remove="ClientApp\src\app\models\response.ts" />
     <None Remove="ClientApp\src\app\models\usuario.ts" />
     <None Remove="ClientApp\src\app\security\auth.guard.ts" />
@@ -48,6 +50,7 @@
     <None Remove="ClientApp\src\app\services\auth.service.ts" />
     <None Remove="ClientApp\src\app\services\cliente.service.ts" />
     <None Remove="ClientApp\src\app\services\diviza.service.ts" />
+    <None Remove="ClientApp\src\app\services\ubicacion.service.ts" />
     <None Remove="ClientApp\src\app\signup\signup.component.ts" />
   </ItemGroup>
 

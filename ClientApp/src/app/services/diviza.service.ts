@@ -10,10 +10,10 @@ export class DivizaService {
   constructor(private client: HttpClient) {
 
   }
-
+ 
   getCotizacion() {
     let header = new HttpHeaders().
-      set('Content-Type', 'application-json')
+      set('Content-Type', 'application-json')  
 
     return this.client.get(this._urlAPI, {
       headers: header
