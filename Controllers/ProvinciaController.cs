@@ -74,6 +74,61 @@ namespace WepAppClip.Controllers
             return Ok(oResponse);
         }
 
+        [HttpGet("[action]")]
+        public IActionResult GetDirecciones()
+        {
+            Response oResponse = new Response
+            {
+                Exito = 0
+            };
+            try
+            {
+                using Billetera_virtualContext db = new Billetera_virtualContext();
+                var listado = db.Direccions.ToList();
+                oResponse.Exito = 1;
+                oResponse.Mensaje = "Listado de provincias generado";
+                oResponse.Data = listado;
+            }
+            catch (Exception e)
+            {
+
+                oResponse.Mensaje = e.Message;
+            }
+
+            return Ok(oResponse);
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult AddDireccion([FromBody] Direccion oModel)
+        {
+            Response oResponse = new Response
+            {
+                Exito = 0
+            };
+            try
+            {
+                using Billetera_virtualContext db = new Billetera_virtualContext();
+                Direccion oDireccion = new Direccion
+                {
+                    Calle = oModel.Calle,
+                    Numero = oModel.Numero,
+                    IdLocalidad = oModel.IdLocalidad
+                };
+                db.Direccions.Add(oDireccion);
+                db.SaveChanges();
+
+                oResponse.Exito = 1;
+                oResponse.Mensaje = "Direccion Creada Correctamente";
+                oResponse.Data = oDireccion;
+            }
+	        catch (Exception e)
+	        {
+
+                oResponse.Mensaje = e.Message;
+            }
+            return Ok(oResponse);
+        }
+
         /*
         // GET api/<ProvinciaController>/5
         [HttpGet("{id}")]

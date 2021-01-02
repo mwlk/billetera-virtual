@@ -156,7 +156,17 @@ namespace WepAppClip.Controllers
             {
                 Exito = 0
             };
-            return Ok(model);
+            try
+            {
+                oResponse.Data = model;
+                oResponse.Exito = 1;
+            }
+            catch (Exception e)
+            {
+
+                oResponse.Mensaje = e.Message;
+            }
+            return Ok(oResponse);
         }
     }
     
