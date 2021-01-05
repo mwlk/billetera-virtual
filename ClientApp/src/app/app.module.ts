@@ -18,6 +18,9 @@ import { AuthGuard } from './security/auth.guard';
 import { JwtInterceptor } from './security/jwt.interceptor';
 import { SignupComponent } from './signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CuentaService } from './services/cuenta.service';
+import { DivizaService } from './services/diviza.service';
+import { OperacionService } from './services/operacion.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   providers: [
     ClienteService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    CuentaService,
+    DivizaService,
+    OperacionService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

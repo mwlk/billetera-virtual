@@ -25,6 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
   </ItemGroup>
@@ -41,6 +42,7 @@
     <None Remove="ClientApp\src\app\cotizador\cotizador.component.ts" />
     <None Remove="ClientApp\src\app\login\login.component.ts" />
     <None Remove="ClientApp\src\app\models\cliente.ts" />
+    <None Remove="ClientApp\src\app\models\cuenta.ts" />
     <None Remove="ClientApp\src\app\models\direccion.ts" />
     <None Remove="ClientApp\src\app\models\localidad.ts" />
     <None Remove="ClientApp\src\app\models\login.ts" />
@@ -51,7 +53,9 @@
     <None Remove="ClientApp\src\app\security\jwt.interceptor.ts" />
     <None Remove="ClientApp\src\app\services\auth.service.ts" />
     <None Remove="ClientApp\src\app\services\cliente.service.ts" />
+    <None Remove="ClientApp\src\app\services\cuenta.service.ts" />
     <None Remove="ClientApp\src\app\services\diviza.service.ts" />
+    <None Remove="ClientApp\src\app\services\operacion.service.ts" />
     <None Remove="ClientApp\src\app\services\ubicacion.service.ts" />
     <None Remove="ClientApp\src\app\signup\signup.component.ts" />
   </ItemGroup>

@@ -101,6 +101,52 @@ namespace WepAppClip.Controllers
             return Ok(oResponse);
         }
 
+        [HttpPut("[action]")]
+        public IActionResult ActualizarSaldo([FromBody] decimal monto, int idOperacion, int _idCuenta )
+        {
+            decimal saldoActual;
+            Response oResponse = new Response
+            {
+                Exito = 0
+            };
+            try
+            {
+                using Billetera_virtualContext db = new Billetera_virtualContext();
+                Cuentum oCuenta = db.Cuenta.Find(_idCuenta);
+                saldoActual = (decimal)oCuenta.Saldo;
+                if (idOperacion == 1) //para depositar
+                {
+                    saldoActual += monto;
+                    db.Entry(oCuenta).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    db.SaveChanges();
+                    oResponse.Mensaje = "Ingreso de dinero confirmado";
+                }
+                else
+                {
+                    if (idOperacion == 2) //para extraer
+                    {
+                        if (monto > saldoActual)
+                        {
+                            oResponse.Mensaje = "saldo menor a la extraccion solicitada";
+                        }
+                        else
+                        {
+                            saldoActual -= monto;
+                            db.Entry(oCuenta).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                            db.SaveChanges();
+                            oResponse.Mensaje = "Ingreso de dinero confirmado";
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+
+                oResponse.Mensaje = e.Message;
+            }
+            return Ok();
+        }
+
         /*
         // GET api/<CuentaController>/5
         [HttpGet("{id}")]

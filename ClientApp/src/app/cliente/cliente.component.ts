@@ -24,7 +24,7 @@ export class ClienteComponent {
   getClientes() {
     this.clienteService.getClientes().subscribe(response => {
       this.lista = response.data;
-      console.log(response.data);
+      //console.log(response.data);
     });
   }
 }
