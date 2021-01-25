@@ -15,4 +15,12 @@ export class OperacionService {
   GetTopTen(_id: number): Observable<Response> {
     return this._http.get<Response>(this.urlBase + 'gettopten/' + _id);
   }
+
+  realizarDeposito(_cvu: string, _monto: number) {
+    return "deposito realizado";
+  }
+
+  realizarExtraccion(_cvu: string, _monto: number) {
+    return "extraccion realizada";
+  }
 }

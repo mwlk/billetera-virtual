@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CotizadorComponent } from './cotizador/cotizador.component'
 import { LoginComponent } from './login/login.component';
 import { ClienteComponent } from './cliente/cliente.component';
+import { IngresoEgresoDinero } from './retiro/reti';
 
 import { ClienteService } from './services/cliente.service';
 import { MatTableModule } from '@angular/material/table';
